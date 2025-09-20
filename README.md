@@ -3,7 +3,7 @@
 [![Python Version](https://img.shields.io/badge/python-3.7+-blue.svg)](https://python.org)
 [![Flask](https://img.shields.io/badge/framework-Flask-green.svg)](https://flask.palletsprojects.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/Sahilopl/python-cli)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/Sahilopl/Python-Cli)
 
 A modern, feature-rich Python-based command terminal with both web and CLI interfaces. This project provides a comprehensive terminal experience with AI-powered natural language processing, real-time system monitoring, and a beautiful responsive UI.
 
@@ -47,8 +47,8 @@ A modern, feature-rich Python-based command terminal with both web and CLI inter
 ### Quick Start
 ```bash
 # Clone the repository
-git clone https://github.com/Sahilopl/python-cli.git
-cd python-cli
+git clone https://github.com/Sahilopl/Python-Cli.git
+cd Python-Cli
 
 # Install dependencies
 pip install -r requirements.txt
@@ -191,8 +191,8 @@ We welcome contributions! Please follow these steps:
 ### Development Setup
 ```bash
 # Clone your fork
-git clone https://github.com/yourusername/python-cli.git
-cd python-cli
+git clone https://github.com/yourusername/Python-Cli.git
+cd Python-Cli
 
 # Create virtual environment
 python -m venv venv
@@ -218,8 +218,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support & Contact
 
-- **Issues**: [GitHub Issues](https://github.com/Sahilopl/python-cli/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/Sahilopl/python-cli/discussions)
+- **Issues**: [GitHub Issues](https://github.com/Sahilopl/Python-Cli/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Sahilopl/Python-Cli/discussions)
 - **Email**: [Contact](mailto:your-email@example.com)
 
 ## 🗺️ Roadmap
