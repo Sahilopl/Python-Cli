@@ -1,0 +1,286 @@
+/* Advanced Terminal Styling and Animations */
+
+/* Terminal typing animation */
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blinkCursor {
+    0%, 50% { border-color: #00ff00; }
+    51%, 100% { border-color: transparent; }
+}
+
+.typing-animation {
+    overflow: hidden;
+    border-right: 2px solid #00ff00;
+    white-space: nowrap;
+    margin: 0 auto;
+    animation: typewriter 2s steps(40, end), blinkCursor 1s step-end infinite;
+}
+
+/* Glitch effect for errors */
+@keyframes glitch {
+    0% {
+        text-shadow: 
+            0.05em 0 0 #ff0000,
+            -0.03em -0.04em 0 #00ff00,
+            0.025em 0.04em 0 #0000ff;
+    }
+    15% {
+        text-shadow: 
+            0.05em 0 0 #ff0000,
+            -0.03em -0.04em 0 #00ff00,
+            0.025em 0.04em 0 #0000ff;
+    }
+    16% {
+        text-shadow: 
+            -0.05em -0.025em 0 #ff0000,
+            0.025em 0.035em 0 #00ff00,
+            -0.05em -0.05em 0 #0000ff;
+    }
+    49% {
+        text-shadow: 
+            -0.05em -0.025em 0 #ff0000,
+            0.025em 0.035em 0 #00ff00,
+            -0.05em -0.05em 0 #0000ff;
+    }
+    50% {
+        text-shadow: 
+            0.05em 0.035em 0 #ff0000,
+            0.03em 0 0 #00ff00,
+            0 -0.04em 0 #0000ff;
+    }
+    99% {
+        text-shadow: 
+            0.05em 0.035em 0 #ff0000,
+            0.03em 0 0 #00ff00,
+            0 -0.04em 0 #0000ff;
+    }
+    100% {
+        text-shadow: 
+            0.05em 0 0 #ff0000,
+            -0.03em -0.04em 0 #00ff00,
+            0.025em 0.04em 0 #0000ff;
+    }
+}
+
+.error-glitch {
+    animation: glitch 0.3s;
+}
+
+/* Matrix-style text effect */
+@keyframes matrix-fall {
+    0% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+.matrix-text {
+    position: absolute;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    animation: matrix-fall 3s linear infinite;
+    pointer-events: none;
+}
+
+/* Loading spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+    border: 2px solid #333;
+    border-top: 2px solid #00ff00;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+/* Pulse effect for system monitoring */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+    }
+}
+
+.monitoring-active {
+    animation: pulse 2s infinite;
+}
+
+/* Neon glow effect */
+.neon-glow {
+    text-shadow: 
+        0 0 5px #00ff00,
+        0 0 10px #00ff00,
+        0 0 15px #00ff00,
+        0 0 20px #00ff00;
+}
+
+/* Console log styling */
+.console-log {
+    background: rgba(0, 0, 0, 0.8);
+    border-left: 3px solid #00ff00;
+    padding: 5px 10px;
+    margin: 5px 0;
+    font-family: 'Courier New', monospace;
+    color: #00ff00;
+}
+
+.console-warn {
+    border-left-color: #ffff00;
+    color: #ffff00;
+}
+
+.console-error {
+    border-left-color: #ff0000;
+    color: #ff0000;
+}
+
+/* Smooth transitions */
+.terminal-container, .sidebar {
+    transition: all 0.3s ease;
+}
+
+.terminal-container:hover, .sidebar:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+}
+
+/* Terminal focus effect */
+.terminal-focused {
+    border-color: #00ff00;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+}
+
+/* Custom button styles */
+.terminal-btn {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid #00ff00;
+    color: #00ff00;
+    padding: 5px 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+}
+
+.terminal-btn:hover {
+    background: rgba(0, 255, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+/* File tree styling */
+.file-tree {
+    list-style: none;
+    padding-left: 0;
+}
+
+.file-tree li {
+    margin: 2px 0;
+    padding: 2px 0;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.file-tree li:hover {
+    color: #00ff00;
+}
+
+.file-tree .directory::before {
+    content: "📁 ";
+}
+
+.file-tree .file::before {
+    content: "📄 ";
+}
+
+/* Command suggestion styling */
+.command-suggestion {
+    background: rgba(0, 255, 0, 0.1);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    border-radius: 3px;
+    padding: 2px 6px;
+    margin: 2px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 11px;
+    transition: all 0.2s ease;
+}
+
+.command-suggestion:hover {
+    background: rgba(0, 255, 0, 0.2);
+    border-color: #00ff00;
+}
+
+/* Success/Error message styling */
+.message-success {
+    color: #00ff00;
+    border-left: 3px solid #00ff00;
+    padding-left: 10px;
+    margin: 5px 0;
+}
+
+.message-error {
+    color: #ff6b6b;
+    border-left: 3px solid #ff6b6b;
+    padding-left: 10px;
+    margin: 5px 0;
+}
+
+.message-warning {
+    color: #ffff00;
+    border-left: 3px solid #ffff00;
+    padding-left: 10px;
+    margin: 5px 0;
+}
+
+/* Terminal header enhancement */
+.terminal-header-enhanced {
+    background: linear-gradient(45deg, #1a1a1a, #333);
+    border-bottom: 1px solid #00ff00;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive enhancements */
+@media (max-width: 480px) {
+    .container {
+        margin: 5px;
+    }
+    
+    .terminal-container, .sidebar {
+        border-radius: 5px;
+        margin: 5px;
+    }
+    
+    .terminal-output {
+        font-size: 12px;
+        padding: 10px;
+    }
+    
+    .input-container {
+        padding: 8px;
+    }
+}

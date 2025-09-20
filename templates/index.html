@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Command Terminal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: #00ff00;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .terminal-container {
+            flex: 1;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #333;
+            border-radius: 10px;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .terminal-header {
+            background: linear-gradient(90deg, #333, #555);
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 8px 8px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .terminal-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn.close { background: #ff5f57; }
+        .btn.minimize { background: #ffbd2e; }
+        .btn.maximize { background: #28ca42; }
+
+        .terminal-title {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .system-info {
+            font-size: 12px;
+            color: #888;
+        }
+
+        .terminal-output {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 0 0 8px 8px;
+        }
+
+        .output-line {
+            margin-bottom: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .prompt {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        .command {
+            color: #ffffff;
+        }
+
+        .output {
+            color: #00ff00;
+            margin-left: 0px;
+        }
+
+        .error {
+            color: #ff6b6b;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.9);
+            border-top: 1px solid #333;
+        }
+
+        .current-dir {
+            color: #00ffff;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        #command-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            outline: none;
+            padding: 5px;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #333;
+            border-radius: 10px;
+            margin: 10px 10px 10px 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        .sidebar-header {
+            background: linear-gradient(90deg, #333, #555);
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .monitoring-section {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .monitoring-section h3 {
+            color: #00ffff;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+
+        .metric-name {
+            color: #888;
+        }
+
+        .metric-value {
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00, #ffff00, #ff0000);
+            transition: width 0.3s ease;
+        }
+
+        .help-section {
+            padding: 15px;
+            font-size: 11px;
+        }
+
+        .help-section h3 {
+            color: #00ffff;
+            margin-bottom: 8px;
+        }
+
+        .help-command {
+            color: #888;
+            margin-bottom: 3px;
+        }
+
+        .autocomplete-dropdown {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid #333;
+            border-radius: 5px;
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .autocomplete-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            color: #00ff00;
+            border-bottom: 1px solid #222;
+        }
+
+        .autocomplete-item:hover,
+        .autocomplete-item.selected {
+            background: rgba(0, 255, 0, 0.2);
+        }
+
+        .loading {
+            color: #ffff00;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #777;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: 200px;
+                margin: 0 10px 10px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="terminal-container">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <div class="btn close"></div>
+                    <div class="btn minimize"></div>
+                    <div class="btn maximize"></div>
+                </div>
+                <div class="terminal-title">Python Command Terminal</div>
+                <div class="system-info" id="system-info">Loading...</div>
+            </div>
+            
+            <div class="terminal-output" id="terminal-output">
+                <div class="output-line">
+                    <span class="output">Welcome to Python Command Terminal!</span>
+                </div>
+                <div class="output-line">
+                    <span class="output">Type 'help' for available commands or use natural language!</span>
+                </div>
+                <div class="output-line">
+                    <span class="output">Examples: "create folder test", "list files", "show system info"</span>
+                </div>
+                <div class="output-line">
+                    <span class="output">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+                </div>
+            </div>
+            
+            <div class="input-container">
+                <span class="current-dir" id="current-dir">~</span>
+                <span class="prompt">$</span>
+                <input type="text" id="command-input" placeholder="Enter command..." autocomplete="off">
+                <div class="autocomplete-dropdown" id="autocomplete-dropdown"></div>
+            </div>
+        </div>
+        
+        <div class="sidebar">
+            <div class="sidebar-header">System Monitor</div>
+            
+            <div class="monitoring-section">
+                <h3>CPU & Memory</h3>
+                <div class="metric">
+                    <span class="metric-name">CPU Usage:</span>
+                    <span class="metric-value" id="cpu-usage">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="cpu-progress" style="width: 0%"></div>
+                </div>
+                
+                <div class="metric" style="margin-top: 10px;">
+                    <span class="metric-name">Memory:</span>
+                    <span class="metric-value" id="memory-usage">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="memory-progress" style="width: 0%"></div>
+                </div>
+                
+                <div class="metric" style="margin-top: 10px;">
+                    <span class="metric-name">Disk:</span>
+                    <span class="metric-value" id="disk-usage">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="disk-progress" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="monitoring-section">
+                <h3>Top Processes</h3>
+                <div id="top-processes">Loading...</div>
+            </div>
+            
+            <div class="help-section">
+                <h3>Quick Commands</h3>
+                <div class="help-command">pwd - current directory</div>
+                <div class="help-command">ls - list files</div>
+                <div class="help-command">cd &lt;dir&gt; - change directory</div>
+                <div class="help-command">mkdir &lt;name&gt; - create folder</div>
+                <div class="help-command">rm &lt;name&gt; - remove item</div>
+                <div class="help-command">monitor - system info</div>
+                <div class="help-command">help - show all commands</div>
+                <div class="help-command">clear - clear terminal</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let commandHistory = [];
+        let historyIndex = -1;
+        let autocompleteIndex = -1;
+        let isExecuting = false;
+
+        const terminalOutput = document.getElementById('terminal-output');
+        const commandInput = document.getElementById('command-input');
+        const currentDirSpan = document.getElementById('current-dir');
+        const systemInfoSpan = document.getElementById('system-info');
+        const autocompleteDropdown = document.getElementById('autocomplete-dropdown');
+
+        // Focus on input
+        commandInput.focus();
+        
+        // Load system info
+        loadSystemInfo();
+        
+        // Start monitoring
+        setInterval(updateSystemMonitoring, 3000);
+        updateSystemMonitoring();
+
+        function loadSystemInfo() {
+            fetch('/execute', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ command: 'pwd' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.system_info) {
+                    systemInfoSpan.textContent = `${data.system_info.platform} | Python ${data.system_info.python_version}`;
+                }
+                currentDirSpan.textContent = data.current_dir || '~';
+            });
+        }
+
+        function updateSystemMonitoring() {
+            fetch('/monitor')
+            .then(response => response.json())
+            .then(data => {
+                if (typeof data === 'object' && data.cpu_percent !== undefined) {
+                    // Update CPU
+                    document.getElementById('cpu-usage').textContent = `${data.cpu_percent.toFixed(1)}%`;
+                    document.getElementById('cpu-progress').style.width = `${data.cpu_percent}%`;
+                    
+                    // Update Memory
+                    document.getElementById('memory-usage').textContent = `${data.memory.percent.toFixed(1)}%`;
+                    document.getElementById('memory-progress').style.width = `${data.memory.percent}%`;
+                    
+                    // Update Disk
+                    document.getElementById('disk-usage').textContent = `${data.disk.percent.toFixed(1)}%`;
+                    document.getElementById('disk-progress').style.width = `${data.disk.percent}%`;
+                    
+                    // Update top processes
+                    const processesDiv = document.getElementById('top-processes');
+                    if (data.top_processes && data.top_processes.length > 0) {
+                        processesDiv.innerHTML = data.top_processes.slice(0, 5).map(proc => 
+                            `<div style="font-size: 10px; margin-bottom: 3px; color: #888;">
+                                <div>${proc.name || 'Unknown'}</div>
+                                <div style="color: #00ff00;">CPU: ${(proc.cpu_percent || 0).toFixed(1)}%</div>
+                            </div>`
+                        ).join('');
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching monitoring data:', error);
+            });
+        }
+
+        function executeCommand(command) {
+            if (isExecuting) return;
+            
+            isExecuting = true;
+            
+            // Add command to output
+            addToOutput(`${currentDirSpan.textContent}$ ${command}`, 'command');
+            
+            // Add loading indicator
+            const loadingLine = addToOutput('Executing...', 'loading');
+            
+            fetch('/execute', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ command: command })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Remove loading indicator
+                loadingLine.remove();
+                
+                if (data.output === 'CLEAR_TERMINAL') {
+                    clearTerminal();
+                } else {
+                    const outputClass = data.output.startsWith('Error:') ? 'error' : 'output';
+                    
+                    if (typeof data.output === 'object') {
+                        addToOutput(JSON.stringify(data.output, null, 2), outputClass);
+                    } else {
+                        addToOutput(data.output, outputClass);
+                    }
+                }
+                
+                // Update current directory
+                if (data.current_dir) {
+                    currentDirSpan.textContent = data.current_dir;
+                }
+                
+                isExecuting = false;
+            })
+            .catch(error => {
+                loadingLine.remove();
+                addToOutput(`Error: ${error.message}`, 'error');
+                isExecuting = false;
+            });
+        }
+
+        function addToOutput(text, className = 'output') {
+            const line = document.createElement('div');
+            line.className = `output-line ${className}`;
+            line.textContent = text;
+            terminalOutput.appendChild(line);
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            return line;
+        }
+
+        function clearTerminal() {
+            terminalOutput.innerHTML = `
+                <div class="output-line">
+                    <span class="output">Terminal cleared.</span>
+                </div>
+            `;
+        }
+
+        // Event listeners
+        commandInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                const command = this.value.trim();
+                if (command) {
+                    // Add to history
+                    commandHistory.unshift(command);
+                    if (commandHistory.length > 50) {
+                        commandHistory.pop();
+                    }
+                    historyIndex = -1;
+                    
+                    executeCommand(command);
+                    this.value = '';
+                }
+                hideAutocomplete();
+            } else if (event.key === 'ArrowUp') {
+                event.preventDefault();
+                if (historyIndex < commandHistory.length - 1) {
+                    historyIndex++;
+                    this.value = commandHistory[historyIndex];
+                }
+            } else if (event.key === 'ArrowDown') {
+                event.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    this.value = commandHistory[historyIndex];
+                } else if (historyIndex === 0) {
+                    historyIndex = -1;
+                    this.value = '';
+                }
+            } else if (event.key === 'Tab') {
+                event.preventDefault();
+                handleAutocomplete();
+            } else if (event.key === 'Escape') {
+                hideAutocomplete();
+            }
+        });
+
+        commandInput.addEventListener('input', function() {
+            const query = this.value.trim();
+            if (query.length > 0) {
+                showAutocomplete(query);
+            } else {
+                hideAutocomplete();
+            }
+        });
+
+        function showAutocomplete(query) {
+            fetch(`/autocomplete?q=${encodeURIComponent(query)}`)
+            .then(response => response.json())
+            .then(suggestions => {
+                if (suggestions.length > 0) {
+                    autocompleteDropdown.innerHTML = suggestions.map((suggestion, index) => 
+                        `<div class="autocomplete-item" data-index="${index}">${suggestion}</div>`
+                    ).join('');
+                    
+                    autocompleteDropdown.style.display = 'block';
+                    autocompleteIndex = -1;
+                    
+                    // Add click listeners
+                    autocompleteDropdown.querySelectorAll('.autocomplete-item').forEach(item => {
+                        item.addEventListener('click', function() {
+                            commandInput.value = this.textContent;
+                            hideAutocomplete();
+                            commandInput.focus();
+                        });
+                    });
+                } else {
+                    hideAutocomplete();
+                }
+            })
+            .catch(() => hideAutocomplete());
+        }
+
+        function hideAutocomplete() {
+            autocompleteDropdown.style.display = 'none';
+            autocompleteIndex = -1;
+        }
+
+        function handleAutocomplete() {
+            const items = autocompleteDropdown.querySelectorAll('.autocomplete-item');
+            if (items.length > 0) {
+                if (autocompleteIndex >= 0) {
+                    commandInput.value = items[autocompleteIndex].textContent;
+                    hideAutocomplete();
+                } else {
+                    autocompleteIndex = 0;
+                    items[0].classList.add('selected');
+                }
+            }
+        }
+
+        // Keep focus on input
+        document.addEventListener('click', function(event) {
+            if (!autocompleteDropdown.contains(event.target)) {
+                commandInput.focus();
+                hideAutocomplete();
+            }
+        });
+
+        // Window click to hide autocomplete
+        window.addEventListener('click', function(event) {
+            if (!event.target.closest('.input-container')) {
+                hideAutocomplete();
+            }
+        });
+    </script>
+</body>
+</html>
