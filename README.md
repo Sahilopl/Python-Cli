@@ -7,7 +7,11 @@
 
 A modern, feature-rich Python-based command terminal with both web and CLI interfaces. This project provides a comprehensive terminal experience with AI-powered natural language processing, real-time system monitoring, and a beautiful responsive UI.
 
-![Python CLI Terminal Demo](https://via.placeholder.com/800x400/1a1a1a/00ff00?text=Python+CLI+Terminal)
+## 📸 Demo
+
+![Python CLI Terminal Demo](./images/terminal-demo.png)
+
+*Live demo showing the web interface with real-time system monitoring, command execution, and Matrix-style terminal aesthetics*
 
 ## 🚀 Features
 
@@ -72,7 +76,59 @@ python cli_terminal.py
 
 ## 🖥️ Usage
 
+## 🎨 Screenshots
+
 ### Web Terminal Interface
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│ 🐍 Python Command Terminal                    Windows | Python 3.12 │
+├─────────────────────────────────────────────────────────────────────┤
+│ Welcome to Python Command Terminal!                                │
+│ Type 'help' for available commands or use natural language!        │
+│ Examples: "create folder test", "list files", "show system info"   │
+│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ │
+│                                                                     │
+│ C:\Users\onein\OneDrive\Desktop\Bajaj task $ create folder myapp    │
+│ ✅ Directory 'myapp' created successfully                          │
+│                                                                     │
+│ C:\Users\onein\OneDrive\Desktop\Bajaj task $ list files            │
+│ 📁 Contents of directory:                                          │
+│ ─────────────────────────────────────────────────────────────────── │
+│ Name                    Type       Size           Modified         │
+│ ─────────────────────────────────────────────────────────────────── │
+│ 📁 myapp              directory                   2025-09-20 14:30 │
+│ 📄 README.md          file       2,048 bytes     2025-09-20 14:25 │
+│                                                                     │
+│ C:\Users\onein\OneDrive\Desktop\Bajaj task $ _                      │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+### System Monitoring Sidebar
+```
+┌─────────────────────┐
+│   System Monitor    │
+├─────────────────────┤
+│ CPU & Memory        │
+│ CPU Usage: 31.8%    │
+│ ████████████░░░░░░░ │
+│                     │
+│ Memory: 90.8%       │
+│ ████████████████░░░ │
+│                     │
+│ Disk: 89.5%         │
+│ ███████████████░░░░ │
+├─────────────────────┤
+│ Top Processes       │
+│ System Idle Process │
+│ CPU: 242.2%         │
+│                     │
+│ python.exe          │
+│ CPU: 83.7%          │
+│                     │
+│ dwm.exe             │
+│ CPU: 32.6%          │
+└─────────────────────┘
+```
 1. **Start the web server**:
    ```bash
    python app.py
