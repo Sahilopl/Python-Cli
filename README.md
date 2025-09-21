@@ -7,11 +7,7 @@
 
 A modern, feature-rich Python-based command terminal with both web and CLI interfaces. This project provides a comprehensive terminal experience with AI-powered natural language processing, real-time system monitoring, and a beautiful responsive UI.
 
-## 📸 Demo
 
-![Python CLI Terminal Demo](./images/terminal-demo.png)
-
-*Live demo showing the web interface with real-time system monitoring, command execution, and Matrix-style terminal aesthetics*
 
 ## 🚀 Features
 
