@@ -396,3 +396,8 @@ if __name__ == '__main__':
     print(f"Python: {terminal.system_info['python_version']}")
     print("Access the terminal at: http://localhost:5000")
     app.run(debug=True, host='0.0.0.0', port=5000)
+
+# Vercel compatibility
+def handler(event, context):
+    """Vercel serverless function handler"""
+    return app
