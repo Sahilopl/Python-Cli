@@ -4,8 +4,15 @@
 [![Flask](https://img.shields.io/badge/framework-Flask-green.svg)](https://flask.palletsprojects.com/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)](https://github.com/Sahilopl/Python-Cli)
+[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen.svg)](https://python-cli-65t5-git-main-sahilopls-projects.vercel.app/)
 
 A modern, feature-rich Python-based command terminal with both web and CLI interfaces. This project provides a comprehensive terminal experience with AI-powered natural language processing, real-time system monitoring, and a beautiful responsive UI.
+
+## 🌐 Live Demo
+
+**Try it now**: [https://python-cli-65t5-git-main-sahilopls-projects.vercel.app/](https://python-cli-65t5-git-main-sahilopls-projects.vercel.app/)
+
+Experience the full-featured Python CLI terminal in your browser with all features including natural language processing, system monitoring, and the beautiful Matrix-style interface!
 
 
 
@@ -75,29 +82,9 @@ python cli_terminal.py
 ## 🎨 Screenshots
 
 ### Web Terminal Interface
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│ 🐍 Python Command Terminal                    Windows | Python 3.12 │
-├─────────────────────────────────────────────────────────────────────┤
-│ Welcome to Python Command Terminal!                                │
-│ Type 'help' for available commands or use natural language!        │
-│ Examples: "create folder test", "list files", "show system info"   │
-│ ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ │
-│                                                                     │
-│ C:\Users\onein\OneDrive\Desktop\Bajaj task $ create folder myapp    │
-│ ✅ Directory 'myapp' created successfully                          │
-│                                                                     │
-│ C:\Users\onein\OneDrive\Desktop\Bajaj task $ list files            │
-│ 📁 Contents of directory:                                          │
-│ ─────────────────────────────────────────────────────────────────── │
-│ Name                    Type       Size           Modified         │
-│ ─────────────────────────────────────────────────────────────────── │
-│ 📁 myapp              directory                   2025-09-20 14:30 │
-│ 📄 README.md          file       2,048 bytes     2025-09-20 14:25 │
-│                                                                     │
-│ C:\Users\onein\OneDrive\Desktop\Bajaj task $ _                      │
-└─────────────────────────────────────────────────────────────────────┘
-```
+[![Screenshot-2025-09-21-225010.png](https://i.postimg.cc/3NFBQZ0W/Screenshot-2025-09-21-225010.png)](https://postimg.cc/K34LnBNy)
+
+*Live demo of the Python CLI Terminal showing the Matrix-style interface, natural language processing, and real-time system monitoring.*
 
 ### System Monitoring Sidebar
 ```
