@@ -238,8 +238,7 @@ def autocomplete():
         return jsonify([])
 
 # Vercel handler
-def handler(request):
-    return app(request.environ, lambda *args: None)
+app.wsgi_app = app.wsgi_app
 
 if __name__ == '__main__':
     app.run(debug=True)
